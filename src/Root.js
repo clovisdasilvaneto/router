@@ -17,8 +17,14 @@ const App = () => {
     return (
         <div class="wrapper">
             <header>
-                <Link to='/'>Home</Link>
-                <Link to='/doc'>Doc</Link>
+                <ul>
+                    <li>
+                        <Link to='/'>Home</Link>
+                    </li>
+                    <li>
+                        <Link to='/doc'>Doc</Link>
+                    </li>
+                </ul>
             </header>
             <main>
                 <Route path='/' component={Home} />
@@ -41,8 +47,8 @@ const Doc = () => {
 
 			<h1>Document</h1>
 			<Route path='/doc/getting-started' render={() => (
-				<h3>Getting Started</h3>
-			)} />
+                <h3>Getting Started</h3>
+            )} />
 		</div>
     );
 }
