@@ -4,8 +4,12 @@ import Component from 'metal-jsx';
 
 class Route extends Component {
 
-    checkMatch() {
+    matchPath() {
         
+    }
+
+    extractParam() {
+
     }
 
     getContext() {
@@ -17,7 +21,7 @@ class Route extends Component {
 
         const { location } = this.context.router.route;
         const { path, component, render, children } = this.props;
-
+        
         if(path === location) {
             return <div>{component()}</div>;
         }
