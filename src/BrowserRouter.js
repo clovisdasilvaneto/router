@@ -14,7 +14,7 @@ class BrowserRouter extends Component {
                 },
                 route: {
                     location: '/',
-                    changeLocation: (to) => {
+                    change: (to) => {
                         this.changeLocation(to)
                     }
                 }
@@ -23,17 +23,16 @@ class BrowserRouter extends Component {
     }
 
     changeLocation(to) {
-        let { location } = this.context.router.route;
+        this.context.router.route.location = to;
 
         this.setState({
             location: to
         });
-        location = to;
     }
     
     render() {
         return(
-            <Router location={this.state.location}>{this.props.children}</Router>
+            <div>{this.props.children}</div>
         );
     }
 }

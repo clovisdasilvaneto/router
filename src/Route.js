@@ -24,11 +24,6 @@ class Route extends Component {
     }
 }
 
-const matchPath = (pathname, options = {}) => {
-
-    const { path = '/' } = options;
-}
-
 Route.STATE = {
     path: {},
     component: {},

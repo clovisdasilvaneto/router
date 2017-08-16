@@ -19,7 +19,7 @@ class Link extends Component {
             const { history, route } = this.context.router;
             const { to } = this.props;
 
-            route.changeLocation(to)
+            route.change(to)
         }
 
     }
