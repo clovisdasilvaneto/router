@@ -8,8 +8,9 @@ class Route extends Component {
         
     }
 
-    extractParam() {
-
+    extractParam(path, location) {
+        console.log(path.split(" "), location.split(" "))
+        return false;
     }
 
     getContext() {
@@ -20,10 +21,14 @@ class Route extends Component {
         //console.log(this);
 
         const { location } = this.context.router.route;
-        const { path, component, render, children } = this.props;
+        const { path, component, render } = this.props;
         
         if(path === location) {
-            return <div>{component()}</div>;
+            if (!render) {
+                return <div>{component()}</div>;
+            }
+
+            return <div>{render(this.props)}</div>
         }
     }
 }
