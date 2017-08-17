@@ -14,7 +14,7 @@ class BrowserRouter extends Component {
                     }
                 },
                 route: {
-                    location: '/',
+                    location: document.location.hash.replace('#', ''),
                     change: (to) => {
                         this.changeLocation(to)
                     }
@@ -35,7 +35,7 @@ class BrowserRouter extends Component {
     }
 
     pushStateHistory(path) {
-        window.history.pushState(null, null, path);
+        window.history.pushState(null, null, `#${path}`);
     }
 
     onPopState() {
