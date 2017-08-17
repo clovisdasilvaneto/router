@@ -24,11 +24,17 @@ const App = () => {
                     <li>
                         <Link to='/doc'>Doc</Link>
                     </li>
+                    <li>
+                        <Link to='/contact'>Contact</Link>
+                    </li>
                 </ul>
             </header>
             <main>
                 <Route path='/' component={Home} />
                 <Route path='/doc' component={Doc} />
+                <Route path='/contact' render={(props) => (
+                    <h1>Contact</h1>
+                )} />
             </main>
         </div>
     );
@@ -43,11 +49,24 @@ const Home = () => {
 const Doc = () => {
     return (
 		<div>
-			<Link to='/doc/getting-started'>Getting Started</Link>
+            <ul>
+                <li>
+			        <Link to='/doc/introdution'>Introdution</Link>
+                </li>
+                <li>
+                    <Link to='/doc/getting-started'>Getting Started</Link>
+                </li>
+            </ul>
 
 			<h1>Document</h1>
+            <Route path='/doc' render={() => (
+                <p>Introdution</p>
+            )}/>
 			<Route path='/doc/getting-started' render={() => (
                 <h3>Getting Started</h3>
+            )} />
+            <Route path='/doc/introdution' render={() => (
+                <h3>Introdution</h3>
             )} />
 		</div>
     );
