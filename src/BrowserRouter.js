@@ -1,15 +1,16 @@
 'use strict';
 
-import { History, Router } from './';
 import Component from 'metal-jsx';
 
 class BrowserRouter extends Component {
     created() {   
+        this.onPopState();
         this.context = {
             router: {
                 history: {
-                    push: (to) => {
-                        
+                    root: [],
+                    pushToHistory: (to, replace = null) => {
+                        this.pushToHistory(to, replace)
                     }
                 },
                 route: {
@@ -20,6 +21,31 @@ class BrowserRouter extends Component {
                 }
             }
         };
+    }
+
+    pushToHistory(to, replace) {
+        let { history } = this.context.router;
+        let mount = {
+            to: to,
+            replace: replace
+        }
+
+        history.root.push(mount);
+        this.pushStateHistory(to);
+    }
+
+    pushStateHistory(path) {
+        window.history.pushState(null, null, path);
+    }
+
+    onPopState() {
+        window.onpopstate = (event) => {
+            event.preventDefault();
+
+            const { pathname } = document.location;
+
+            this.pushToHistory(pathname, null);
+        }
     }
 
     changeLocation(to) {

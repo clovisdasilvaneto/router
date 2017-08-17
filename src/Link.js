@@ -19,7 +19,8 @@ class Link extends Component {
             const { history, route } = this.context.router;
             const { to } = this.props;
 
-            route.change(to)
+            history.pushToHistory(to, route.location);
+            route.change(to);
         }
 
     }
