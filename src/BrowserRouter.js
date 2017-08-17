@@ -42,9 +42,11 @@ class BrowserRouter extends Component {
         window.onpopstate = (event) => {
             event.preventDefault();
 
+            const { route } = this.context.router;
             const { pathname } = document.location;
 
             this.pushToHistory(pathname, null);
+            route.change(pathname);
         }
     }
 
