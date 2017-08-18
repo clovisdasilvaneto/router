@@ -4,13 +4,16 @@ import Component from 'metal-jsx';
 
 class Route extends Component {
 
-    matchPath() {
+    matchPath(path, location) {
+        let comparePathAndLocation = path.localeCompare(location);
         
+        if(comparePathAndLocation == '-1' || comparePathAndLocation === 0) {
+            return true;
+        }
+        return false;
     }
 
-    extractParam(path, location) {
-        console.log(path.split(" "), location.split(" "))
-        return false;
+    extractParam() {
     }
 
     getContext() {
@@ -18,17 +21,15 @@ class Route extends Component {
     }
 
     render() {
-        //console.log(this);
-
         const { location } = this.context.router.route;
-        const { path, component, render } = this.props;
+        const { path, component, render, dyna } = this.props;
         
-        if(this.extractParam(path, location)) {
+        if((path === location && !dyna) || (dyna && this.matchPath(path, location))) {
             if (!render) {
                 return <div>{component()}</div>;
             }
 
-            return <div>{render(this.props)}</div>
+            return render(this.props)
         }
     }
 }
