@@ -31,10 +31,13 @@ const App = () => {
             </header>
             <main>
                 <Route path='/' component={Home} />
-                <Route path='/doc' component={Doc} />
+                <Route dyna path='/doc' component={Doc} />
                 <Route path='/contact' render={(props) => (
                     <h1>Contact</h1>
                 )} />
+                <Route path='/contact' render={(props) => {
+                    return <p>Contact second component.</p>
+                }} />
             </main>
         </div>
     );
@@ -60,13 +63,13 @@ const Doc = () => {
 
 			<h1>Document</h1>
             <Route path='/doc' render={() => (
-                <p>Introdution</p>
+                <p>Start reading.</p>
             )}/>
 			<Route path='/doc/getting-started' render={() => (
-                <h3>Getting Started</h3>
+                <p>Getting Started</p>
             )} />
             <Route path='/doc/introdution' render={() => (
-                <h3>Introdution</h3>
+                <p>Introdution</p>
             )} />
 		</div>
     );
