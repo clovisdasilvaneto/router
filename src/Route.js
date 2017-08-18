@@ -26,7 +26,7 @@ class Route extends Component {
         
         if((path === location && !dyna) || (dyna && this.matchPath(path, location))) {
             if (!render) {
-                return <div>{component()}</div>;
+                return component();
             }
 
             return render(this.props)
