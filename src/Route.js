@@ -23,7 +23,7 @@ class Route extends Component {
         const { location } = this.context.router.route;
         const { path, component, render } = this.props;
         
-        if(path === location) {
+        if(this.extractParam(path, location)) {
             if (!render) {
                 return <div>{component()}</div>;
             }
