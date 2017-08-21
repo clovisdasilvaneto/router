@@ -1,5 +1,6 @@
 'use strict';
 
+import { globals } from './';
 import Component from 'metal-jsx';
 
 class BrowserRouter extends Component {
@@ -35,11 +36,11 @@ class BrowserRouter extends Component {
     }
 
     pushStateHistory(path, state = null) {
-        window.history.pushState(state, null, `#${path}`);
+        globals.window.history.pushState(state, null, `#${path}`);
     }
 
     onPopState() {
-        window.onpopstate = (event) => {
+        globals.window.onpopstate = (event) => {
             event.preventDefault();
 
             const { route } = this.context.router;
