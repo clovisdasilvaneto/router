@@ -61,6 +61,7 @@
 		"webpack-dev-server": "^2.6.1"
 	},
 	"jest": {
+		"testURL": "http://localhost",
 		"resolver": "metal-lerna-jest-resolver",
 		"snapshotSerializers": [
 			"metal-jest-serializer"
