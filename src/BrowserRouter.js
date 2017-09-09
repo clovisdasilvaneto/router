@@ -48,7 +48,7 @@ class BrowserRouter extends Component {
     }
 
     changeLocation(to, replace) {
-        if (this.props.hash) {
+        if (this.props.hash && to.indexOf('#/') !== 0) {
             to = `#${to}`;
         }
 
