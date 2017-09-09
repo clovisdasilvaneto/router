@@ -21,8 +21,9 @@ class Route extends Component {
     }
 
     render() {
-        const { location } = this.context.router.route;
         const { path, component, render, dyna } = this.props;
+        let { location } = this.context.router.route;
+        location = location.replace('#', '');
         
         if((path === location && !dyna) || (dyna && this.matchPath(path, location))) {
             if (!render) {

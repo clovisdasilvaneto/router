@@ -4,39 +4,36 @@ import { globals } from './';
 import Component from 'metal-jsx';
 
 class BrowserRouter extends Component {
-    created() {   
-        this.onPopState();
+    created() {
+        this.onPopState();        
         this.context = {
             router: {
-                history: {
-                    root: [],
-                    pushToHistory: (to, replace = null) => {
-                        this.pushToHistory(to, replace)
-                    }
-                },
+                history: [],
                 route: {
-                    location: document.location.hash.replace('#', ''),
-                    change: (to) => {
+                    location: this.setInitalLocation(globals.document.location),
+                    change: (to, replace = null) => {
                         this.changeLocation(to)
                     }
-                }
+                },
+                provider: {
+                    hashPrefix: this.props.hash
+                },
             }
         };
+
+        this.pushToHistoryModel(this.context.router.route.location, null);
     }
 
-    pushToHistory(to, replace) {
-        let { history } = this.context.router;
-        let mount = {
-            to: to,
-            replace: replace
+    setInitalLocation(location) {
+        if (this.props.hash) {
+            return location.hash || '#/';
         }
 
-        history.root.push(mount);
-        this.pushStateHistory(to);
+        return location.pathname || '/';
     }
 
-    pushStateHistory(path, state = null) {
-        globals.window.history.pushState(state, null, `#${path}`);
+    getRouterContext() {
+        return this.context.router;
     }
 
     onPopState() {
@@ -46,17 +43,36 @@ class BrowserRouter extends Component {
             const { route } = this.context.router;
             const { pathname } = document.location;
 
-            this.pushToHistory(pathname, null);
-            route.change(pathname);
+            route.change(pathname, null);
         }
     }
 
-    changeLocation(to) {
+    changeLocation(to, replace) {
+        if (this.props.hash) {
+            to = `#${to}`;
+        }
+
+        this.pushToHistoryModel(to, replace);
         this.context.router.route.location = to;
 
         this.setState({
             location: to
         });
+    }
+
+    pushToHistoryModel(to, replace) {
+        let { history } = this.context.router;
+        let mount = {
+            to: to,
+            replace: replace
+        }
+
+        history.push(mount);
+        this.pushHistoryApi(to);
+    }
+
+    pushHistoryApi(path, state = null) {
+        globals.window.history.pushState(state, null, path);
     }
     
     render() {
@@ -64,9 +80,16 @@ class BrowserRouter extends Component {
     }
 }
 
+BrowserRouter.PROPS = {
+    hash: {
+        value: true,
+    }
+}
+
 BrowserRouter.STATE = {
     location: {
-        value: '/'
+        value: '/',
+        internal: true,
     }
 }
 

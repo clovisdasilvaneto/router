@@ -16,19 +16,24 @@ class Link extends Component {
         if (!event.preventDefault() && event.target && !isModifiedEvent(event) && event.button === 0) {
             event.preventDefault();
 
-            const { history, route } = this.context.router;
+            const { route } = this.context.router;
+            const { provider } = this.context.router;
             const { to } = this.props;
 
-            history.pushToHistory(to, route.location);
-            route.change(to);
+            route.change(provider.hashPrefix ? `#${to}` : to, route.location);
         }
 
     }
 
     createHref() {
         const { to } = this.props;
+        const { provider } = this.context.router;
+        
+        if (provider.hashPrefix) {
+            return `#${to}`;
+        }
 
-        return `#${to}`;
+        return to;
     }
 
     render() {
